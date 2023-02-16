@@ -25,13 +25,16 @@ if [[ -s compErrors.txt ]]
 		echo "Compilation Successful"
 fi
 java -cp $CPATH org.junit.runner.JUnitCore TestListExamples > errors.txt
-cat errors.txt
+# cat errors.txt
 TESTLINE=`grep "Failures" errors.txt`
-if [[ -z TESTLINE ]]
+TESTCOUNT=`grep "Failures" errors.txt | wc -c`
+# echo $TESTCOUNT
+if [[ $TESTCOUNT -eq 0 ]]
 	then
 		echo "Your grade was 100%"
 		exit 0
 fi
+
 echo $TESTLINE
 TESTS=${TESTLINE:11:1}
 FAILURES=${TESTLINE:25:1}
